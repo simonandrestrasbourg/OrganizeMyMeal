@@ -12,10 +12,15 @@ Install virtualenv and dependency
 
 Prerequisites
 =============
+
 * Have Postgresql installed locally with peer authentification on 127.0.0.1:5432
 * Have linux distribution with libpq-dev python3 python3-dev postgresql
 
-::
+Installation guide
+==================
+
+.. code-block:: sh
+
     python -m venv django-env
     cd django-env
     source bin/activate
