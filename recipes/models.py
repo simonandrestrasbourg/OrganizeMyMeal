@@ -1,3 +1,42 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
-# Create your models here.
+
+class IngredientUnit(models.Model):
+    """ Classify ingredient by quantity unit.
+    Most of ingredient have unity like gram, centilitre...
+    That model have to be configured only by admin.
+    """
+    def __str__(self):
+        return self.ingredient_unit_text
+
+    ingredient_unit_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class IngredientType(models.Model):
+    """ Classify ingredient by type of ingredient.
+    Most of ingredient can be vegetables, condiments, meat...
+    That model have to be configured only by admin.
+    """
+    def __str__(self):
+        return self.ingredient_type_text
+
+    ingredient_type_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class Ingredient(models.Model):
+    """ Store ingredient and classify them by quantity unit and type.
+    That model have to be configured by website user and validated 
+    by admin in a delay of one week.
+    """
+    def __str__(self):
+        return self.ingredient_text
+
+    ingredient_text = models.CharField(max_length=200)
+    ingredient_type = models.ForeignKey(IngredientType, on_delete=models.CASCADE)
+    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete=models.CASCADE)
+    conservation_time = models.DurationField()
+    pub_date = models.DateTimeField('date published')
