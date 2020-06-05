@@ -4,6 +4,7 @@ from django.test import TestCase
 from .models import Ingredient, IngredientType, IngredientUnit
 from django.core.exceptions import ValidationError
 from django.db.models.deletion import ProtectedError
+from .admin import IngredientAdminForm
 
 
 class TestIngredient(TestCase):
@@ -19,21 +20,18 @@ class TestIngredient(TestCase):
         IngredientObj = Ingredient.objects.get(pk=4)
         self.assertEqual(IngredientObj.conservation_time, datetime.timedelta(seconds=10000))
 
-    @unittest.skip(
-        "This test is skipping because it's seems django trigger validator only on user input(form,admin)."\
-            "We will do it when we customize admin. May also do manually a fullclean")
     def test_ingredient_conservation_date_is_positiv(self):
         """ We don't want conservation date can be negativ """
         GramUnit = IngredientUnit.objects.filter(ingredient_unit_text="Gram").first()
         MeatType = IngredientType.objects.filter(ingredient_type_text="Meat").first()
+        Porc = Ingredient(
+            conservation_time=datetime.timedelta(days=-25, seconds=0),
+            ingredient_text="Porc",
+            ingredient_unit=GramUnit,
+            ingredient_type=MeatType,
+            pub_date=datetime.datetime.now())
         with self.assertRaises(ValidationError) as cm:
-            Ingredient(
-                conservation_time=datetime.timedelta(days=-25, seconds=0),
-                ingredient_text="Porc",
-                ingredient_unit=GramUnit,
-                ingredient_type=MeatType,
-                pub_date=datetime.datetime.now()).save()
-        self.assertEqual(cm.msg, "")
+           Porc.full_clean()
 
     def test_delete_ingredient_type(self):
         """ Cannot delete ingredient type when have Ingredient using it."""

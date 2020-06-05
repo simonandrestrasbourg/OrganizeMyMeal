@@ -30,9 +30,9 @@ from django.core.exceptions import ValidationError
 
 def validate_duration_time_not_negative(value):
     """ TODO: unittest """
-    if value >= datetime.timedelta(days=0):
+    if value <= datetime.timedelta(days=0):
         raise ValidationError(
-            _('%(value)s have to be positive'),
+            '%(value)s have to be positive',
             params={'value': value},
         )
 
