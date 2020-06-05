@@ -26,6 +26,16 @@ class IngredientType(models.Model):
     ingredient_type_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
+from django.core.exceptions import ValidationError
+
+def validate_duration_time_not_negative(value):
+    """ TODO: unittest """
+    if value >= datetime.timedelta(days=0):
+        raise ValidationError(
+            _('%(value)s have to be positive'),
+            params={'value': value},
+        )
+
 
 class Ingredient(models.Model):
     """ Store ingredient and classify them by quantity unit and type.
@@ -36,7 +46,7 @@ class Ingredient(models.Model):
         return self.ingredient_text
 
     ingredient_text = models.CharField(max_length=200)
-    ingredient_type = models.ForeignKey(IngredientType, on_delete=models.CASCADE)
-    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete=models.CASCADE)
-    conservation_time = models.DurationField()
+    ingredient_type = models.ForeignKey(IngredientType, on_delete=models.PROTECT)
+    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
+    conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
     pub_date = models.DateTimeField('date published')
