@@ -30,4 +30,5 @@ Installation guide
     createdb organizemymeal 
     python manage.py migrate 
     python manage.py createsuperuser
+    python manage.py loaddata recipes/fixtures/ingredients_fixture.json
     python manage.py runserver
