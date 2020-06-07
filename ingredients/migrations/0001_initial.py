@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('ingredient_text', models.CharField(max_length=200)),
                 ('conservation_time', models.DurationField()),
                 ('pub_date', models.DateTimeField(verbose_name='date published')),
-                ('ingredient_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recipes.IngredientType')),
-                ('ingredient_unit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recipes.IngredientUnit')),
+                ('ingredient_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ingredients.IngredientType')),
+                ('ingredient_unit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ingredients.IngredientUnit')),
             ],
         ),
     ]
