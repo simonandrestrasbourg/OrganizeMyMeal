@@ -58,3 +58,16 @@ class TestIngredient(TestCase):
         self.assert_(IngredientTypeObj)
         self.assert_(IngredientUnitObj)
 
+    def test_client_index_page(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_client_ingredient_list(self):
+        response = self.client.get('/ingredient/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['ingredient_list']), 12)
+
+    def test_client_ingredient(self):
+        response = self.client.get('/ingredient/4/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['object'].ingredient_text, "Fresh cream")
