@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 from ingredients.models import Ingredient
 from ingredients.models import IngredientForm
 from django.urls import reverse_lazy
@@ -19,7 +19,7 @@ class IngredientSaveView(DetailView):
     template_name = 'ingredients/ingredient_save.html'
 
 
-class IngredientEditView(FormView):
+class IngredientEditView(UpdateView):
     model = Ingredient
     form_class = IngredientForm
     template_name = 'ingredients/ingredient_edit.html'
