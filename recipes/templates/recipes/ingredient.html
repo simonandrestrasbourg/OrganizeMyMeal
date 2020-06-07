@@ -1,0 +1,18 @@
+{% extends "recipes/base.html" %}
+{% block title %}OrganizeMyMeal{% endblock %}
+{% block description %}OrganizeMyMeal{% endblock %}
+{% block content %}
+    <h2>Ingredients</h2>
+    <h3>{{ object.ingredient_text }}</h3>
+    <ul>
+	<li>
+	    {{ object.ingredient_type }}
+	</li>
+	<li>
+	    {{ object.ingredient_unit }}
+	</li>
+	<li>
+	    {{ object.conservation_time }}
+	</li>
+    </ul>
+{% endblock %}
