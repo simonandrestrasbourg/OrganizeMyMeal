@@ -9,9 +9,9 @@ class IngredientUnit(models.Model):
     That model have to be configured only by admin.
     """
     def __str__(self):
-        return self.ingredient_unit_text
+        return self.unit_text
 
-    ingredient_unit_text = models.CharField(max_length=200)
+    unit_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
 
@@ -21,9 +21,9 @@ class IngredientType(models.Model):
     That model have to be configured only by admin.
     """
     def __str__(self):
-        return self.ingredient_type_text
+        return self.type_text
 
-    ingredient_type_text = models.CharField(max_length=200)
+    type_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
 from django.core.exceptions import ValidationError
@@ -43,10 +43,10 @@ class Ingredient(models.Model):
     by admin in a delay of one week.
     """
     def __str__(self):
-        return self.ingredient_text
+        return self.name
 
-    ingredient_text = models.CharField(max_length=200)
-    ingredient_type = models.ForeignKey(IngredientType, on_delete=models.PROTECT)
-    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
+    name = models.CharField(max_length=200)
+    type = models.ForeignKey(IngredientType, on_delete=models.PROTECT)
+    unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
     conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
     pub_date = models.DateTimeField('date published')

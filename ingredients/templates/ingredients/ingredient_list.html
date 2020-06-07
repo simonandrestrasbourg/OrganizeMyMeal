@@ -8,13 +8,13 @@
     <div class="col s6">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-	  <span class="card-title">{{ ingredient.ingredient_text }}</span>
+	  <span class="card-title">{{ ingredient.name }}</span>
     	  <ul>
 	    <li>
-	      Type: {{ ingredient.ingredient_type }}
+	      Type: {{ ingredient.type }}
 	    </li>
       	    <li>
-      	      Unit of quantity: {{ ingredient.ingredient_unit }}
+      	      Unit of quantity: {{ ingredient.unit }}
       	    </li>
       	    <li>
 	      Conservation time: {{ ingredient.conservation_time }}
@@ -23,7 +23,7 @@
         </div>
         <div class="card-action">
     	  <a href="{% url 'ingredients:ingredient' ingredient.id %}">
-            {{ ingredient.ingredient_text }}
+            {{ ingredient.name }}
 	  </a>
 	</div>
       </div>

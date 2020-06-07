@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='IngredientType',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ingredient_type_text', models.CharField(max_length=200)),
+                ('type_text', models.CharField(max_length=200)),
                 ('pub_date', models.DateTimeField(verbose_name='date published')),
             ],
         ),
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             name='IngredientUnit',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ingredient_unit_text', models.CharField(max_length=200)),
+                ('unit_text', models.CharField(max_length=200)),
                 ('pub_date', models.DateTimeField(verbose_name='date published')),
             ],
         ),
@@ -32,11 +32,11 @@ class Migration(migrations.Migration):
             name='Ingredient',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ingredient_text', models.CharField(max_length=200)),
+                ('name', models.CharField(max_length=200)),
                 ('conservation_time', models.DurationField()),
                 ('pub_date', models.DateTimeField(verbose_name='date published')),
-                ('ingredient_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ingredients.IngredientType')),
-                ('ingredient_unit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ingredients.IngredientUnit')),
+                ('type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ingredients.IngredientType')),
+                ('unit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ingredients.IngredientUnit')),
             ],
         ),
     ]

@@ -11,7 +11,7 @@ class IngredientAdminForm(forms.ModelForm):
 
 class IngredientAdmin(admin.ModelAdmin):
     form = IngredientAdminForm
-    fields = ['pub_date', 'ingredient_text', 'ingredient_type', 'ingredient_unit',
+    fields = ['pub_date', 'name', 'type', 'unit',
               'conservation_time']
 
 admin.site.register(Ingredient, IngredientAdmin)
