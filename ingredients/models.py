@@ -10,9 +10,9 @@ class IngredientUnit(models.Model):
     That model have to be configured only by admin.
     """
     def __str__(self):
-        return self.unit_text
+        return self.name
 
-    unit_text = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
 
@@ -22,9 +22,9 @@ class IngredientType(models.Model):
     That model have to be configured only by admin.
     """
     def __str__(self):
-        return self.type_text
+        return self.name
 
-    type_text = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
 from django.core.exceptions import ValidationError
