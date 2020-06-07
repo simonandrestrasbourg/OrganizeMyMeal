@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Organize your meal easily{% endblock %}</title>
+  <meta name="description" 
+  	content="{% block description %}Organize your meal easily.{% endblock %}">
+  <meta name="author" content="MyIT">
+</head>
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/ingredient/">Ingredient</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
