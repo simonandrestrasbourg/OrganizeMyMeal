@@ -13,21 +13,23 @@
   {% block materialize_javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'ingredients/style.css' %}">
   {% endblock %}
 
 </head>
 <body>
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/ingredient/">Ingredient</a></li>
-        </ul>
-        {% endblock %}
-    </div>
-
-    <div id="content">
+    <div class="container">
+      <div id="sidebar">
+          {% block sidebar %}
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/ingredient/">Ingredient</a></li>
+          </ul>
+          {% endblock %}
+      </div>
+      <div id="content">
         {% block content %}{% endblock %}
+      </div>
     </div>
 </body>
 </html>
