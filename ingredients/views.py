@@ -11,13 +11,19 @@ def index(request):
     return render(request, 'ingredients/index.html', context)
 
 
+class IngredientSaveView(DetailView):
+    model = Ingredient
+    template_name = 'ingredients/ingredient_save.html'
+
+
+class IngredientEditView(DetailView):
+    model = Ingredient
+    template_name = 'ingredients/ingredient_edit.html'
+
+
 class IngredientView(DetailView):
     model = Ingredient
     template_name = 'ingredients/ingredient.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 
 class IngredientListView(ListView):
