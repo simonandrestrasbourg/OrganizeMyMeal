@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django import forms
 
 
 class IngredientUnit(models.Model):
@@ -50,3 +51,9 @@ class Ingredient(models.Model):
     unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
     conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
     pub_date = models.DateTimeField('date published')
+
+
+class IngredientForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = ['name', 'type', 'unit', 'conservation_time']
