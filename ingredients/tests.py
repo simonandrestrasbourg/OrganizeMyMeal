@@ -71,3 +71,9 @@ class TestIngredient(TestCase):
         response = self.client.get('/ingredient/4/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['object'].name, "Fresh cream")
+
+    def test_client_ingredient_edit(self):
+        response = self.client.get('/ingredient_edit/4/')
+        self.assertEqual(response.status_code, 200)
+        ingredient = response.context['object']
+        self.assertEqual(ingredient.name, "Fresh cream")

@@ -52,7 +52,6 @@ class Ingredient(models.Model):
     conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
     pub_date = models.DateTimeField('date published')
 
-
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient

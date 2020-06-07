@@ -3,9 +3,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormView, UpdateView
-from ingredients.models import Ingredient
-from ingredients.models import IngredientForm
-from django.urls import reverse_lazy
+from ingredients.models import Ingredient, IngredientForm
+from django.urls import reverse_lazy, reverse
 
 
 def index(request):
@@ -21,9 +20,10 @@ class IngredientSaveView(DetailView):
 
 class IngredientEditView(UpdateView):
     model = Ingredient
-    form_class = IngredientForm
     template_name = 'ingredients/ingredient_edit.html'
-    success_url = reverse_lazy('ingredient')
+    success_url = reverse_lazy('ingredients:ingredient-list')
+    form_class = IngredientForm
+
 
 
 class IngredientView(DetailView):
