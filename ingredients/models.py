@@ -32,7 +32,7 @@ def validate_conservation_not_negative(value):
     """ Add constraint on conservation_day integer field"""
     if value < 0:
         raise ValidationError(
-            '%(value)s have to be positive',
+            'Conservation duration cannot be negative',
             params={'value': value},
         )
 
