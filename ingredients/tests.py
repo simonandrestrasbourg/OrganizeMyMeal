@@ -22,8 +22,8 @@ class TestIngredient(TestCase):
 
     def test_ingredient_conservation_date_is_positiv(self):
         """ We don't want conservation date can be negativ """
-        GramUnit = IngredientUnit.objects.filter(unit_text="Gram").first()
-        MeatType = IngredientType.objects.filter(type_text="Meat").first()
+        GramUnit = IngredientUnit.objects.filter(name="Gram").first()
+        MeatType = IngredientType.objects.filter(name="Meat").first()
         Porc = Ingredient(
             conservation_time=datetime.timedelta(days=-25, seconds=0),
             name="Porc",
@@ -35,7 +35,7 @@ class TestIngredient(TestCase):
 
     def test_delete_type(self):
         """ Cannot delete ingredient type when have Ingredient using it."""
-        MeatType = IngredientType.objects.filter(type_text="Meat").first()
+        MeatType = IngredientType.objects.filter(name="Meat").first()
         IngredientObjs = Ingredient.objects.filter(type=MeatType)
         self.assertEqual(len(IngredientObjs), 2)
         with self.assertRaises(ProtectedError) as cm:
@@ -43,7 +43,7 @@ class TestIngredient(TestCase):
 
     def test_delete_unit(self):
         """ Cannot delete ingredient unit when have Ingredient using it."""
-        GramUnit = IngredientUnit.objects.filter(unit_text="Gram").first()
+        GramUnit = IngredientUnit.objects.filter(name="Gram").first()
         IngredientObjs = Ingredient.objects.filter(unit=GramUnit)
         self.assertEqual(len(IngredientObjs), 6)
         with self.assertRaises(ProtectedError) as cm:
