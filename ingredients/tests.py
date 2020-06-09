@@ -33,6 +33,39 @@ class TestIngredient(TestCase):
         with self.assertRaises(ValidationError) as cm:
            Porc.full_clean()
 
+    def test_create_ingredient_pub_date(self):
+        """ pub_date have value by default"""
+        GramUnit = IngredientUnit.objects.filter(name="Gram").first()
+        MeatType = IngredientType.objects.filter(name="Meat").first()
+        Porc = Ingredient(
+            conservation_time=datetime.timedelta(days=-25, seconds=0),
+            name="Porc",
+            unit=GramUnit,
+            type=MeatType)
+        self.assertEqual(Porc.pub_date.year, 2020)
+
+    def test_create_ingredient_name_unique(self):
+        """ Test unique constraint on Ingredient.name """
+        GramUnit = IngredientUnit.objects.filter(name="Gram").first()
+        MeatType = IngredientType.objects.filter(name="Meat").first()
+        Porc = Ingredient(
+            conservation_time=datetime.timedelta(days=25, seconds=0),
+            name="Porc",
+            unit=GramUnit,
+            type=MeatType,
+            pub_date=datetime.datetime.now())
+        Porc.full_clean()
+        Porc.save()
+        with self.assertRaises(ValidationError) as cm:
+            Porc2 = Ingredient(
+                conservation_time=datetime.timedelta(days=25, seconds=0),
+                name="Porc",
+                unit=GramUnit,
+                type=MeatType,
+            )
+            Porc2.full_clean()
+            Porc2.save()
+
     def test_delete_type(self):
         """ Cannot delete ingredient type when have Ingredient using it."""
         MeatType = IngredientType.objects.filter(name="Meat").first()

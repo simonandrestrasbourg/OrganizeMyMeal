@@ -46,11 +46,11 @@ class Ingredient(models.Model):
     That model have to be configured by website user and validated 
     by admin in a delay of one week.
     """
+
     def __str__(self):
         return self.name
 
-
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     type = models.ForeignKey(IngredientType, on_delete=models.PROTECT)
     unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
     conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
