@@ -38,6 +38,9 @@ def validate_duration_time_not_negative(value):
         )
 
 
+def get_pub_date():
+    return datetime.datetime.now()
+
 class Ingredient(models.Model):
     """ Store ingredient and classify them by quantity unit and type.
     That model have to be configured by website user and validated 
@@ -46,11 +49,12 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
+
     name = models.CharField(max_length=200)
     type = models.ForeignKey(IngredientType, on_delete=models.PROTECT)
     unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
     conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', default=get_pub_date)
 
 class IngredientForm(forms.ModelForm):
     class Meta:

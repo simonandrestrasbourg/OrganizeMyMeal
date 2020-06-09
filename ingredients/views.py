@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import FormView, UpdateView, CreateView
 from ingredients.models import Ingredient, IngredientForm
 from django.urls import reverse_lazy, reverse
 
@@ -13,22 +13,11 @@ def index(request):
     return render(request, 'ingredients/index.html', context)
 
 
-class IngredientSaveView(DetailView):
-    model = Ingredient
-    template_name = 'ingredients/ingredient_save.html'
-
-
-class IngredientEditView(UpdateView):
-    model = Ingredient
-    template_name = 'ingredients/ingredient_edit.html'
-    success_url = reverse_lazy('ingredients:ingredient-list')
-    form_class = IngredientForm
-
-
-
 class IngredientView(DetailView):
     model = Ingredient
     template_name = 'ingredients/ingredient.html'
+    success_url = reverse_lazy('ingredients:ingredient-list')
+    form_class = IngredientForm
 
 
 class IngredientListView(ListView):
@@ -42,3 +31,14 @@ class IngredientListView(ListView):
          return Ingredient.objects.filter() 
 
 
+class IngredientNewView(CreateView):
+    model = Ingredient
+    template_name = 'ingredients/ingredient_new.html'
+    fields = ['name', 'type', 'unit', 'conservation_time']
+    success_url = reverse_lazy('ingredients:ingredient-list')
+
+class IngredientEditView(UpdateView):
+    model = Ingredient
+    template_name = 'ingredients/ingredient_edit.html'
+    success_url = reverse_lazy('ingredients:ingredient-list')
+    form_class = IngredientForm
