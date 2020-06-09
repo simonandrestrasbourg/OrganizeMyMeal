@@ -2,3 +2,5 @@ db.sqlite3
 *.pyc
 __pychache__
 *.swp
+.idea
+venv/
