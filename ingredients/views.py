@@ -34,7 +34,7 @@ class IngredientListView(ListView):
 class IngredientNewView(CreateView):
     model = Ingredient
     template_name = 'ingredients/ingredient_new.html'
-    fields = ['name', 'type', 'unit', 'conservation_time']
+    fields = ['name', 'type', 'unit', 'conservation_day']
     success_url = reverse_lazy('ingredients:ingredient-list')
 
 class IngredientEditView(UpdateView):

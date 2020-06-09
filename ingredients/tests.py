@@ -10,22 +10,17 @@ from .admin import IngredientAdminForm
 class TestIngredient(TestCase):
     fixtures = ['ingredients_fixture.json']
 
-    def test_first_ingrediant_conservation_time_max(self):
+    def test_first_ingredient_conservation_day(self):
         """ Verify conservation time is equal to datetime.delta python module."""
         IngredientObj = Ingredient.objects.get(pk=1)
-        self.assertEqual(IngredientObj.conservation_time, datetime.timedelta(days=11574, seconds=6399))
+        self.assertEqual(IngredientObj.conservation_day, 10)
 
-    def test_first_ingrediant_conservation_time_middle(self):
-        """ Verify conservation time is equal to datetime.delta python module."""
-        IngredientObj = Ingredient.objects.get(pk=4)
-        self.assertEqual(IngredientObj.conservation_time, datetime.timedelta(seconds=10000))
-
-    def test_ingredient_conservation_date_is_positiv(self):
-        """ We don't want conservation date can be negativ """
+    def test_ingredient_conservation_date_is_positive(self):
+        """ We don't want conservation date can be negative """
         GramUnit = IngredientUnit.objects.filter(name="Gram").first()
         MeatType = IngredientType.objects.filter(name="Meat").first()
         Porc = Ingredient(
-            conservation_time=datetime.timedelta(days=-25, seconds=0),
+            conservation_day=-7,
             name="Porc",
             unit=GramUnit,
             type=MeatType,
@@ -38,7 +33,7 @@ class TestIngredient(TestCase):
         GramUnit = IngredientUnit.objects.filter(name="Gram").first()
         MeatType = IngredientType.objects.filter(name="Meat").first()
         Porc = Ingredient(
-            conservation_time=datetime.timedelta(days=-25, seconds=0),
+            conservation_day=7,
             name="Porc",
             unit=GramUnit,
             type=MeatType)
@@ -49,7 +44,7 @@ class TestIngredient(TestCase):
         GramUnit = IngredientUnit.objects.filter(name="Gram").first()
         MeatType = IngredientType.objects.filter(name="Meat").first()
         Porc = Ingredient(
-            conservation_time=datetime.timedelta(days=25, seconds=0),
+            conservation_day=7,
             name="Porc",
             unit=GramUnit,
             type=MeatType,
@@ -58,7 +53,7 @@ class TestIngredient(TestCase):
         Porc.save()
         with self.assertRaises(ValidationError) as cm:
             Porc2 = Ingredient(
-                conservation_time=datetime.timedelta(days=25, seconds=0),
+                conservation_day=7,
                 name="Porc",
                 unit=GramUnit,
                 type=MeatType,

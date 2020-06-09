@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='ingredient',
             name='conservation_time',
-            field=models.DurationField(validators=[ingredients.models.validate_duration_time_not_negative]),
+            field=models.DurationField(validators=[ingredients.models.validate_conservation_not_negative]),
         ),
         migrations.AlterField(
             model_name='ingredient',

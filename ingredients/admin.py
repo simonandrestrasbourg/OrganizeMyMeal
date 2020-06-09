@@ -6,13 +6,13 @@ from .models import IngredientUnit, IngredientType, Ingredient
 class IngredientAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(IngredientAdminForm, self).__init__(*args, **kwargs)
-        self.fields['conservation_time'].widget = TimeDurationWidget(
+        self.fields['conservation_day'].widget = TimeDurationWidget(
             show_days=True, show_hours=False, show_minutes=False, show_seconds=False)
 
 class IngredientAdmin(admin.ModelAdmin):
     form = IngredientAdminForm
     fields = ['pub_date', 'name', 'type', 'unit',
-              'conservation_time']
+              'conservation_day']
 
 admin.site.register(Ingredient, IngredientAdmin)
 

@@ -1,7 +1,7 @@
 from django.db import models
 import datetime
-from django.utils import timezone
 from django import forms
+from django.core.exceptions import ValidationError
 
 
 class IngredientUnit(models.Model):
@@ -27,11 +27,10 @@ class IngredientType(models.Model):
     name = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
-from django.core.exceptions import ValidationError
 
-def validate_duration_time_not_negative(value):
-    """ TODO: unittest """
-    if value <= datetime.timedelta(days=0):
+def validate_conservation_not_negative(value):
+    """ Add constraint on conservation_day integer field"""
+    if value < 0:
         raise ValidationError(
             '%(value)s have to be positive',
             params={'value': value},
@@ -39,7 +38,9 @@ def validate_duration_time_not_negative(value):
 
 
 def get_pub_date():
+    """ Return default value for field pub_date."""
     return datetime.datetime.now()
+
 
 class Ingredient(models.Model):
     """ Store ingredient and classify them by quantity unit and type.
@@ -53,10 +54,11 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=200, unique=True)
     type = models.ForeignKey(IngredientType, on_delete=models.PROTECT)
     unit = models.ForeignKey(IngredientUnit, on_delete=models.PROTECT)
-    conservation_time = models.DurationField(validators=[validate_duration_time_not_negative])
+    conservation_day = models.IntegerField(validators=[validate_conservation_not_negative])
     pub_date = models.DateTimeField('date published', default=get_pub_date)
+
 
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = ['name', 'type', 'unit', 'conservation_time']
+        fields = ['name', 'type', 'unit', 'conservation_day']
