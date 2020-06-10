@@ -13,16 +13,27 @@
   {% block materialize_javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'ingredients/style.css' %}">
   {% endblock %}
-
 </head>
 <body>
     <div class="container">
       <div id="sidebar">
+          {% block sidebar %}
+          <ul>
+            <li><a href="{% url 'ingredients:index' %}">Home</a></li>
+            <li><a href="{% url 'ingredients:ingredient-list' %}">Ingredients</a></li>
+          </ul>
+          <ul>
+            <li><a href="{% url 'core:login' %}">Login</a></li>
+            <li><a href="{% url 'core:logout' %}">Logout</a></li>
+          </ul>
+          {% endblock %}
       </div>
       <div id="content">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
       </div>
     </div>
 </body>

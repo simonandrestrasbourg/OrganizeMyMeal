@@ -1,16 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.views import View
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormView, UpdateView, CreateView
 from ingredients.models import Ingredient, IngredientForm
-from django.urls import reverse_lazy, reverse
-
-
-def index(request):
-    """ Index page """
-    context = {}
-    return render(request, 'ingredients/index.html', context)
+from django.urls import reverse_lazy
 
 
 class IngredientView(DetailView):
@@ -36,6 +27,7 @@ class IngredientNewView(CreateView):
     template_name = 'ingredients/ingredient_new.html'
     fields = ['name', 'type', 'unit', 'conservation_day']
     success_url = reverse_lazy('ingredients:ingredient-list')
+
 
 class IngredientEditView(UpdateView):
     model = Ingredient

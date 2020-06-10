@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<form method="post">
+<form method="post" action="{% url 'core:login' %}">
     {% csrf_token %}
     {% for field in form %}
       <p>
