@@ -1,10 +1,9 @@
 import datetime
-import unittest
 from django.test import TestCase
 from .models import Ingredient, IngredientType, IngredientUnit
 from django.core.exceptions import ValidationError
 from django.db.models.deletion import ProtectedError
-from .admin import IngredientAdminForm
+from django.urls import reverse
 
 
 class TestIngredient(TestCase):
@@ -85,10 +84,6 @@ class TestIngredient(TestCase):
         IngredientObj.delete()
         self.assert_(IngredientTypeObj)
         self.assert_(IngredientUnitObj)
-
-    def test_client_index_page(self):
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
 
     def test_client_ingredient_list(self):
         response = self.client.get('/ingredient/')
