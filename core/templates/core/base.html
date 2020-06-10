@@ -1,0 +1,29 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Organize your meal easily{% endblock %}</title>
+  <meta name="description" 
+  	content="{% block description %}Organize your meal easily.{% endblock %}">
+  <meta name="author" content="MyIT">
+  {% block materialize_stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"  med    ia="screen,projection"/>
+  {% endblock %}
+  {% block materialize_javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'ingredients/style.css' %}">
+  {% endblock %}
+
+</head>
+<body>
+    <div class="container">
+      <div id="sidebar">
+      </div>
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+</body>
+</html>
