@@ -27,13 +27,14 @@
           </ul>
           <ul>
             <li>{% if user.is_authenticated %}
-                <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+              <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+            </li>
+            <li><a href="{% url 'core:logout' %}">Logout</a></li>
               {% else %}
                 <p>Welcome, new user. Please log in.</p>
+                <li><a href="{% url 'core:signup' %}">Signup</a></li>
+                <li><a href="{% url 'core:login' %}">Login</a></li>
               {% endif %}
-            </li>
-            <li><a href="{% url 'core:login' %}">Login</a></li>
-            <li><a href="{% url 'core:logout' %}">Logout</a></li>
           </ul>
           {% endblock %}
       </div>
