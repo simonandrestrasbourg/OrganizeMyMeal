@@ -22,10 +22,16 @@
       <div id="sidebar">
           {% block sidebar %}
           <ul>
-            <li><a href="{% url 'ingredients:index' %}">Home</a></li>
+            <li><a href="{% url 'core:index' %}">Home</a></li>
             <li><a href="{% url 'ingredients:ingredient-list' %}">Ingredients</a></li>
           </ul>
           <ul>
+            <li>{% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+              {% else %}
+                <p>Welcome, new user. Please log in.</p>
+              {% endif %}
+            </li>
             <li><a href="{% url 'core:login' %}">Login</a></li>
             <li><a href="{% url 'core:logout' %}">Logout</a></li>
           </ul>

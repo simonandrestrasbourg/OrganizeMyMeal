@@ -19,7 +19,7 @@ def signup_view(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect(reverse_lazy('ingredients:index'))
+            return redirect(reverse_lazy('core:index'))
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -34,7 +34,7 @@ def login_view(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect(reverse_lazy('ingredients:index'))
+            return redirect(reverse_lazy('core:index'))
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -42,4 +42,4 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect(reverse_lazy('ingredients:index'))
+    return redirect(reverse_lazy('core:index'))
