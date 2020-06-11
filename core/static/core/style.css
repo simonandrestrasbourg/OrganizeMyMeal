@@ -1,3 +1,37 @@
 select {
   display: inline;
 }
+.username {
+  color: red;
+}
+nav {
+  background-color: #55d000;
+}
+body {
+  background-color: #FFCCC9;
+}
+label {
+  font-size: 1em;
+  color: white;
+}
+.card .card-title {
+	font-weight: 900;
+}
+
+@media only screen and (min-width: 0) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  html {
+    font-size: 16.5px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: 17px;
+  }
+}

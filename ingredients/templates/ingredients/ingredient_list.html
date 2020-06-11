@@ -2,9 +2,17 @@
 {% block title %}OrganizeMyMeal{% endblock %}
 {% block description %}OrganizeMyMeal{% endblock %}
 {% block content %}
-    <h2>Ingredients</h2>
-    <a class="btn-floating btn-large waves-effect waves-light red"
-        href="{% url 'ingredients:ingredient_new' %}"><i class="material-icons">New</i></a>
+    <div class="row valign-wrapper">
+        <div class="col s4">
+            <h3>Ingredients</h3>
+        </div>
+        <div  class="col s4 valign-wrapper">
+            <a class="btn btn-large waves-effect waves-light green "
+                href="{% url 'ingredients:ingredient_new' %}">
+                <i class="material-icons">New</i>
+            </a>
+        </div>
+    </div>
     <div class="row">
     {% for ingredient in ingredient_list %}
     <div class="col s6">
