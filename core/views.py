@@ -35,8 +35,6 @@ def login_view(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect(reverse_lazy('core:index'))
-        else:
-            return render(request, 'registration/login.html', {'form': form})
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
