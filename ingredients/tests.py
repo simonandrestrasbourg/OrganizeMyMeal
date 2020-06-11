@@ -3,11 +3,26 @@ from django.test import TestCase
 from .models import Ingredient, IngredientType, IngredientUnit
 from django.core.exceptions import ValidationError
 from django.db.models.deletion import ProtectedError
-from django.urls import reverse
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
 
 
 class TestIngredient(TestCase):
     fixtures = ['ingredients_fixture.json']
+
+    def setUp(self):
+        self.user_fields = {
+            'username': "user",
+            'password': "user"
+        }
+        self.user = User.objects.create_user(**self.user_fields)
+        view_perm = Permission.objects.get(codename="view_ingredient")
+        add_perm = Permission.objects.get(codename="add_ingredient")
+        change_perm = Permission.objects.get(codename="change_ingredient")
+        self.user.user_permissions.add(view_perm)
+        self.user.user_permissions.add(add_perm)
+        self.user.user_permissions.add(change_perm)
+        self.user.save()
 
     def test_first_ingredient_conservation_day(self):
         """ Verify conservation time is equal to datetime.delta python module."""
@@ -86,16 +101,19 @@ class TestIngredient(TestCase):
         self.assert_(IngredientUnitObj)
 
     def test_client_ingredient_list(self):
+        self.client.login(**self.user_fields)
         response = self.client.get('/ingredient/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredient_list']), 12)
 
     def test_client_ingredient(self):
+        self.client.login(**self.user_fields)
         response = self.client.get('/ingredient/4/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['object'].name, "Fresh cream")
 
     def test_client_ingredient_edit(self):
+        self.client.login(**self.user_fields)
         response = self.client.get('/ingredient_edit/4/')
         self.assertEqual(response.status_code, 200)
         ingredient = response.context['object']
