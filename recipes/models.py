@@ -9,10 +9,11 @@ class Recipe(models.Model):
     duration = models.IntegerField()
     short_description = models.TextField()
     content = models.TextField()
-    ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient', related_name='ingredient')
+    ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredientRel', related_name='recipe')
 
 
-class RecipeIngredient(models.Model):
-    recipe = models.ForeignKey(Recipe, related_name='recipe_ingredient', on_delete=models.SET_NULL, null=True)
-    ingredient = models.ForeignKey(Ingredient, related_name='recipe_ingredient', on_delete=models.SET_NULL, null=True, blank=True)
+class RecipeIngredientRel(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.SET_NULL, null=True)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.SET_NULL, null=True, related_name='recipes')
     quantity = models.IntegerField()
+
