@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/simonandrestrasbourg/OrganizeMyMeal/issues",
+  "email": "simonandre.strasbourg@protonmail.com",
+  "dependencies": {
+    "@vue/cli": "^4.4.1"
+  }
+}

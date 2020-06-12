@@ -1,0 +1,135 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Organize your meal easily{% endblock %}</title>
+  <meta name="description" 
+  	content="{% block description %}Organize your meal easily.{% endblock %}">
+  <meta name="author" content="MyIT">
+  {% block materialize_stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"  med    ia="screen,projection"/>
+  {% endblock %}
+  {% block materialize_javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ingredients/style.css' %}">
+  {% endblock %}
+
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+
+
+    <div id="starting">
+      <div class="container">
+        <div class="row">
+          <h1>List of Recipes
+          <button class="btn btn-success">ADD INGREDIENT</button>
+          </h1>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="recipe in recipes">
+                <th scope="row">${recipe.short_description}</th>
+                <td>${recipe.name}</td>
+                <td>
+                  <button class="btn btn-info" v-on:click="getRecipe(recipe.recipe_id)">Edit</button>
+                  <button class="btn btn-danger" v-on:click="deleteRecipe(recipe.recipe_id)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="loading" v-if="loading===true">Loading&#8230;</div>
+    </div>
+
+<script type="text/javascript">
+ console.log("Start block vuejs");
+ var vm = new Vue({
+   el: '#starting',
+   delimiters: ['${','}'],
+   data: {
+     recipes: [],
+     loading: false,
+     currentRecipe: {},
+     message: null,
+     newRecipe: { 'name': null, 'short_description': null },
+   },
+   mounted: function() {
+     this.getRecipes();
+   },
+   methods: {
+     getRecipes: function() {
+     this.loading = true;
+     this.$http.get('/api/recipe/')
+         .then((response) => {
+           this.recipes = response.data;
+           this.loading = false;
+         })
+         .catch((err) => {
+          this.loading = false;
+          console.log(err);
+         })
+     },
+     getRecipe: function(id) {
+     this.loading = true;
+     this.$http.get(`/api/recipe/${id}/`)
+      .then((response) => {
+        this.currentRecipe = response.data;
+        this.loading = false;
+      })
+      .catch((err) => {
+        this.loading = false;
+        console.log(err);
+      })
+ },
+ addRecipe: function() {
+  this.loading = true;
+  this.$http.post('/api/recipe/',this.newRecipe)
+      .then((response) => {
+        this.loading = false;
+        this.getRecipes();
+      })
+      .catch((err) => {
+        this.loading = false;
+        console.log(err);
+      })
+ },
+ updateRecipe: function() {
+  this.loading = true;
+  this.$http.put(`/api/recipe/${this.currentRecipe.recipe_id}/`,     this.currentRecipe)
+      .then((response) => {
+        this.loading = false;
+        this.currentRecipe = response.data;
+        this.getRecipes();
+      })
+      .catch((err) => {
+        this.loading = false;
+        console.log(err);
+      })
+ },
+ deleteRecipe: function(id) {
+  this.loading = true;
+  this.$http.delete(`/api/recipe/${id}/` )
+      .then((response) => {
+        this.loading = false;
+        this.getRecipes();
+      })
+      .catch((err) => {
+        this.loading = false;
+        console.log(err);
+      })
+ }}
+  });
+ </script>
+</body>

@@ -4,3 +4,5 @@ __pychache__
 *.swp
 .idea
 venv/
+node_modules/
+package-lock.json
