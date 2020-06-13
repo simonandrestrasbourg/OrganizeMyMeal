@@ -1,5 +1,5 @@
 var vm = new Vue({
-  el: '#starting',
+  el: '#container',
   delimiters: ['${','}'],
   data: {
     recipes: [],

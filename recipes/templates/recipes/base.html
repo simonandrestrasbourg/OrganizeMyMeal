@@ -1,0 +1,52 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Organize your meal easily{% endblock %}</title>
+  <meta name="description" 
+  	content="{% block description %}Organize your meal easily.{% endblock %}">
+  <meta name="author" content="MyIT">
+  {% block materialize_stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"  med    ia="screen,projection"/>
+  {% endblock %}
+  {% block materialize_javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'materialize/js/materialize.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ingredients/style.css' %}">
+  {% endblock %}
+  {% block vuejs_javascripts %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+  {% endblock %}
+</head>
+<body>
+  {% block content %}
+  <div id="container" class="container">
+    <div class="row">
+      <div class="col s6" v-for="recipe in recipes">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+	    <span class="card-title">${ recipe.name }</span>
+    	    <ul>
+	      <li>
+	        Description: ${ recipe.short_description }
+	      </li>
+      	      <li>
+      	        Duration: ${ recipe.duration }
+      	      </li>
+      	      <li>
+	        Content: ${ recipe.content }
+	      </li>
+            </ul>
+          </div>
+          <div class="card-action">
+	  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript"  src="{% static 'recipes/js/index_vue.js' %}" ></script>
+  {% endblock %}
+</body>
