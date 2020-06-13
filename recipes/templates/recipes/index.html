@@ -26,31 +26,28 @@
     <div id="starting">
       <div class="container">
         <div class="row">
-          <h1>List of Recipes
-          <button class="btn btn-success">ADD INGREDIENT</button>
-          </h1>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Heading</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="recipe in recipes">
-                <th scope="row">${recipe.short_description}</th>
-                <td>${recipe.name}</td>
-                <td>
-                  <button class="btn btn-info" v-on:click="getRecipe(recipe.recipe_id)">Edit</button>
-                  <button class="btn btn-danger" v-on:click="deleteRecipe(recipe.recipe_id)">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+	<div class="col s6" v-for="recipe in recipes">
+        <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+	  <span class="card-title">${ recipe.name }</span>
+    	  <ul>
+	    <li>
+	      Description: ${ recipe.short_description }
+	    </li>
+      	    <li>
+      	      Duration: ${ recipe.duration }
+      	    </li>
+      	    <li>
+	      Content: ${ recipe.content }
+	    </li>
+          </ul>
         </div>
-      </div>
-      <div class="loading" v-if="loading===true">Loading&#8230;</div>
+        <div class="card-action">
+      	  <div class="loading" v-if="loading===true">Loading&#8230;</div>
+	</div>
+        </div>
+        </div>
+	</div>
     </div>
     <script type="text/javascript"  src="{% static 'recipes/js/index_vue.js' %}" >
     </script>
