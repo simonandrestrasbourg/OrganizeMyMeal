@@ -20,7 +20,7 @@
 </head>
 <body>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
 
 
     <div id="starting">
@@ -52,84 +52,6 @@
       </div>
       <div class="loading" v-if="loading===true">Loading&#8230;</div>
     </div>
-
-<script type="text/javascript">
- console.log("Start block vuejs");
- var vm = new Vue({
-   el: '#starting',
-   delimiters: ['${','}'],
-   data: {
-     recipes: [],
-     loading: false,
-     currentRecipe: {},
-     message: null,
-     newRecipe: { 'name': null, 'short_description': null },
-   },
-   mounted: function() {
-     this.getRecipes();
-   },
-   methods: {
-     getRecipes: function() {
-     this.loading = true;
-     this.$http.get('/api/recipe/')
-         .then((response) => {
-           this.recipes = response.data;
-           this.loading = false;
-         })
-         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-         })
-     },
-     getRecipe: function(id) {
-     this.loading = true;
-     this.$http.get(`/api/recipe/${id}/`)
-      .then((response) => {
-        this.currentRecipe = response.data;
-        this.loading = false;
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.log(err);
-      })
- },
- addRecipe: function() {
-  this.loading = true;
-  this.$http.post('/api/recipe/',this.newRecipe)
-      .then((response) => {
-        this.loading = false;
-        this.getRecipes();
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.log(err);
-      })
- },
- updateRecipe: function() {
-  this.loading = true;
-  this.$http.put(`/api/recipe/${this.currentRecipe.recipe_id}/`,     this.currentRecipe)
-      .then((response) => {
-        this.loading = false;
-        this.currentRecipe = response.data;
-        this.getRecipes();
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.log(err);
-      })
- },
- deleteRecipe: function(id) {
-  this.loading = true;
-  this.$http.delete(`/api/recipe/${id}/` )
-      .then((response) => {
-        this.loading = false;
-        this.getRecipes();
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.log(err);
-      })
- }}
-  });
- </script>
+    <script type="text/javascript"  src="{% static 'recipes/js/index_vue.js' %}" >
+    </script>
 </body>
