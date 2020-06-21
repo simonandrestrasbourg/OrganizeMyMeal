@@ -96,7 +96,7 @@ class TestRecipe(TestCase):
         # If we try to delete that ingredient the orm raise an error
         self.assertRaises(ProtectedError, pasta.delete)
         # so we need to delete all rel between the ingredient and the recipe
-        Pasta_rel = RecipeIngredientRel.objects.filter(ingredient__name='Pasta')
-        Pasta_rel.delete()
+        pasta_rel = RecipeIngredientRel.objects.filter(ingredient__name='Pasta')
+        pasta_rel.delete()
         pasta.delete()
         self.assertEqual(len(Ingredient.objects.filter(name='Pasta')), 0)
