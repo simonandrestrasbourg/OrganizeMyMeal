@@ -14,6 +14,6 @@ class Recipe(models.Model):
 
 class RecipeIngredientRel(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.SET_NULL, null=True)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.SET_NULL, null=True, related_name='recipes')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT, null=True, related_name='recipes')
     quantity = models.IntegerField()
 
